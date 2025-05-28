@@ -42,9 +42,10 @@ jobs:
                 DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
             run: |
                 docker run --rm \
-                    -e DB_HOST=$DB_HOST \
-                    -e DB_USER=$DB_USER \
-                    -e DB_PASSWORD=$DB_PASSWORD \
-                    -e DB_NAME=$DB_NAME \
+                    -e DATABASE_HOST=$DATABASE_HOST \
+                    -e DATABASE_PORT=$DATABASE_PORT \
+                    -e DATABASE_USERNAME=$DATABASE_USERNAME \
+                    -e DATABASE_PASSWORD=$DATABASE_PASSWORD \
+                    -e DATABASE_NAME=$DATABASE_NAME \
                     juanfr97/411-music-api:${{ github.sha }} \
                     migrate --yes
