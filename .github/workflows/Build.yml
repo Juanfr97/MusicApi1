@@ -1,0 +1,27 @@
+name: Docker Build & Publish
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone My Repository
+              uses: actions/checkout@v2
+
+            - name: Login to Docker Hub oooo Cualquier otro Registry
+              run: docker login -u "${{ secrets.DOCKER_USER }}" -p "${{ secrets.DOCKER_PASSWORD }}"
+
+            - name: Construir imagen con commit
+              run: docker build -t juanfr97/411-music-api:${{ github.sha }} .
+
+            - name: Renombrar la imagen con commit
+              run: docker tag juanfr97/411-music-api:${{ github.sha }} juanfr97/411-music-api:latest
+
+            - name: Publicar la imagen
+              run: |
+                docker push juanfr97/411-music-api:${{ github.sha }}
+                docker push juanfr97/411-music-api:latest
